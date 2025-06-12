@@ -1,3 +1,5 @@
+require 'tempfile'
+
 RSpec.describe QualityReport do
   describe '#add_day' do
     it 'adds a day to the report' do
@@ -8,19 +10,13 @@ RSpec.describe QualityReport do
   end
 
   describe '#write' do
-    around do |example|
-      tmpdir = Dir.mktmpdir do |dir|
-        Dir.chdir(tmpdir) do
-          example.run
-        end
-      end
-    end
+    let(:tmpfile) { Tempfile.new('report.csv') }
 
     it 'writes the report to a file' do
       report = QualityReport.new
       report.add_day(1, [])
-      report.write('report.csv')
-      expect(File.exist?('report.csv')).to be_truthy
+      report.write(tmpfile.path)
+      expect(File.read(tmpfile.path)).to match(/day,average_quality/)
     end
   end
 end

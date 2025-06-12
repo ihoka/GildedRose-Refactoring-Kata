@@ -9,6 +9,28 @@ RSpec.describe QualityReport do
     end
   end
 
+  describe '#average_quality' do
+    it 'returns the average quality of the items' do
+      report = QualityReport.new
+      items = [
+        Item.new('foo', 1, 1),
+        Item.new('bar', 1, 2)
+      ]
+      report.add_day(1, items)
+      expect(report.average_quality(items)).to eq(1.5)
+    end
+  end
+
+  describe '#report' do
+    let(:items) { [Item.new('foo', 1, 1), Item.new('bar', 1, 2)] }
+
+    it 'returns the report' do
+      report = QualityReport.new
+      report.add_day(1, items)
+      expect(report.report).to eq([{ day: 1, average_quality: 1.5 }])
+    end
+  end
+
   describe '#write' do
     let(:tmpfile) { Tempfile.new('report.csv') }
 

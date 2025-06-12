@@ -98,3 +98,4 @@ RSpec.configure do |config|
 end
 
 require_relative '../gilded_rose'
+require_relative '../quality_report'

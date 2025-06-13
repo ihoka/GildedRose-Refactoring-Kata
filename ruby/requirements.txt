@@ -1,0 +1,10 @@
+Report
+Avg quality
+Output csv
+
+Day,Average Quality
+1,36
+2,35.25
+3,34
+
+=> report.csv
